@@ -13,7 +13,7 @@ What it calculates (the engine is plain TypeScript, under `src/`):
 - **Analysis:** frequency response, impedance, group delay, excursion, off-axis response (piston model), amplifier power
   and SPL, heat in the crossover parts, and room modes and RT60.
 - **DSP:** a DSP crossover set-up with an export for miniDSP.
-- `asio-bridge/`: a small Python helper for measuring through an ASIO interface.
+- `asio-bridge/`: a small Python WebSocket bridge that lets the app use ASIO and WDM audio drivers for measurements.
 
 ## Run
 
