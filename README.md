@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# SpeakarBuilder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A loudspeaker design workbench: crossovers, enclosures and measurements in one app, in the spirit of VituixCAD, WinISD
+and XSim.
 
-Currently, two official plugins are available:
+What it calculates (the engine is plain TypeScript, under `src/`):
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Crossovers:** Butterworth, Linkwitz-Riley, Bessel and Chebyshev, orders 1 to 4. Zobel, L-pad, baffle-step and notch
+  networks, values snapped to E12/E24.
+- **Enclosures:** sealed (Qtc, Fc, F3), ported (port length, air speed), 4th-order bandpass and passive radiator, with the
+  box's physical dimensions and a cut list.
+- **Drivers:** Thiele/Small parameters, from the datasheet or estimated from imported FRD/ZMA measurement files.
+- **Analysis:** frequency response, impedance, group delay, excursion, off-axis response (piston model), amplifier power
+  and SPL, heat in the crossover parts, and room modes and RT60.
+- **DSP:** a DSP crossover set-up with an export for miniDSP.
+- `asio-bridge/`: a small Python helper for measuring through an ASIO interface.
 
-## React Compiler
+## Run
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev            # in the browser
+npm run electron:dev   # as a desktop app
+npm test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Status
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Some models are still simplified: bandpass alignments, part of the Bessel response and shelf EQ. The detailed list is in
+`FULL_GAP_ANALYSIS_AND_WORKPLAN.md` (in Hebrew). Published from the author's archive as is.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Licence
+
+MIT (see `LICENSE`).

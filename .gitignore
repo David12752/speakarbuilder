@@ -34,3 +34,4 @@ dist-ssr
 *.p12
 node_modules/
 target/
+backup.bat
